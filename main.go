@@ -35,13 +35,13 @@ func goalsSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
 		switch {
 		case a.Goals > b.Goals:
-			return 1
+			return -1
 		case a.Goals < b.Goals:
-			return -1
-		case a.Name > b.Name:
-			return -1
-		case a.Name < b.Name:
 			return 1
+		case a.Name > b.Name:
+			return 1
+		case a.Name < b.Name:
+			return -1
 		default:
 			return 0
 		}
@@ -53,13 +53,13 @@ func ratingSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
 		switch {
 		case a.Rating > b.Rating:
-			return 1
+			return -1
 		case a.Rating < b.Rating:
-			return -1
-		case a.Name < b.Name:
 			return 1
-		case a.Name > b.Name:
+		case a.Name < b.Name:
 			return -1
+		case a.Name > b.Name:
+			return 1
 		default:
 			return 0
 		}
@@ -78,13 +78,13 @@ func gmSort(players []Player) []Player {
 		}
 		switch {
 		case gmA < gmB:
-			return 1
+			return -1
 		case gmA > gmB:
-			return -1
-		case a.Name < b.Name:
 			return 1
-		case a.Name > b.Name:
+		case a.Name < b.Name:
 			return -1
+		case a.Name > b.Name:
+			return 1
 		default:
 			return 0
 		}
