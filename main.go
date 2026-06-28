@@ -4,17 +4,13 @@ import (
 	"slices"
 )
 
-type Teams struct {
-	players []Player
-}
-
 type Player struct {
 	Name                   string
 	Goals, Misses, Assists int
 	Rating                 float64
 }
 
-type TeamsInterface interface {
+type PlayerInterface interface {
 	NewPlayer(name string, goals, misses, assists int) Player
 	goalsSort(players []Player) []Player
 	ratingSort(players []Player) []Player
@@ -35,7 +31,7 @@ func NewPlayer(name string, goals, misses, assists int) Player {
 	return newPlayer
 }
 
-func (p Player) goalsSort(players []Player) []Player {
+func goalsSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
 		switch {
 		case a.Goals > b.Goals:
@@ -53,7 +49,7 @@ func (p Player) goalsSort(players []Player) []Player {
 	return players
 }
 
-func (p Player) ratingSort(players []Player) []Player {
+func ratingSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
 		switch {
 		case a.Rating > b.Rating:
@@ -71,7 +67,7 @@ func (p Player) ratingSort(players []Player) []Player {
 	return players
 }
 
-func (p Player) gmSort(players []Player) []Player {
+func gmSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
 		var gmA, gmB float64 = float64(a.Goals), float64(b.Goals)
 		if a.Misses != 0 {
@@ -94,8 +90,4 @@ func (p Player) gmSort(players []Player) []Player {
 		}
 	})
 	return players
-}
-
-func main() {
-
 }
