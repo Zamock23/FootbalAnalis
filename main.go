@@ -18,7 +18,7 @@ type PlayerInterface interface {
 }
 
 func (player *Player) calculateRating() {
-	var rating float64 = (float64(player.Goals) + float64(player.Assists)) / 2
+	var rating float64 = float64(player.Goals) + float64(player.Assists)/2
 	if player.Misses != 0 {
 		rating /= float64(player.Misses)
 	}
