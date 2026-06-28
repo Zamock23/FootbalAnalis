@@ -1,6 +1,8 @@
 package main
 
-import "slices"
+import (
+	"slices"
+)
 
 type Teams struct {
 	players []Player
@@ -57,6 +59,31 @@ func (p Player) ratingSort(players []Player) []Player {
 		case a.Rating > b.Rating:
 			return 1
 		case a.Rating < b.Rating:
+			return -1
+		case a.Name < b.Name:
+			return 1
+		case a.Name > b.Name:
+			return -1
+		default:
+			return 0
+		}
+	})
+	return players
+}
+
+func (p Player) gmSort(players []Player) []Player {
+	slices.SortFunc(players, func(a, b Player) int {
+		var gmA, gmB float64 = float64(a.Goals), float64(b.Goals)
+		if a.Misses != 0 {
+			gmA /= float64(a.Misses)
+		}
+		if b.Misses != 0 {
+			gmB /= float64(b.Misses)
+		}
+		switch {
+		case gmA < gmB:
+			return 1
+		case gmA > gmB:
 			return -1
 		case a.Name < b.Name:
 			return 1
