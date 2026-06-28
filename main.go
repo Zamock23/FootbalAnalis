@@ -1,9 +1,20 @@
 package main
 
+type Teams struct {
+	players []Player
+}
+
 type Player struct {
 	Name                   string
 	Goals, Misses, Assists int
 	Rating                 float64
+}
+
+type TeamsInterface interface {
+	NewPlayer(name string, goals, misses, assists int) Player
+	goalsSort(players []Player) []Player
+	ratingSort(players []Player) []Player
+	gmSort(players []Player) []Player
 }
 
 func (player *Player) calculateRating() {
