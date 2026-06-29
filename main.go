@@ -50,7 +50,10 @@ func goalsSort(players []Player) []Player {
 		case a.Goals < b.Goals:
 			return 1
 		default:
-			return sortName(a, b)
+			if a.Rating != b.Rating {
+				return sortName(a, b)
+			}
+			return 0
 		}
 	})
 	return players
@@ -85,7 +88,10 @@ func gmSort(players []Player) []Player {
 		case gmA > gmB:
 			return 1
 		default:
-			return sortName(a, b)
+			if a.Rating != b.Rating {
+				return sortName(a, b)
+			}
+			return 0
 		}
 	})
 	return players
