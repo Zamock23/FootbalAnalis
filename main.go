@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"slices"
 )
 
@@ -50,10 +51,7 @@ func goalsSort(players []Player) []Player {
 		case a.Goals < b.Goals:
 			return 1
 		default:
-			if a.Rating != b.Rating {
-				return sortName(a, b)
-			}
-			return 0
+			return sortName(a, b)
 		}
 	})
 	return players
@@ -75,23 +73,20 @@ func ratingSort(players []Player) []Player {
 
 func gmSort(players []Player) []Player {
 	slices.SortFunc(players, func(a, b Player) int {
-		var gmA, gmB float64 = float64(a.Goals), float64(b.Goals)
-		if a.Misses != 0 {
-			gmA /= float64(a.Misses)
-		}
-		if b.Misses != 0 {
-			gmB /= float64(b.Misses)
-		}
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println(r)
+			}
+		}()
+
+		gmA, gmB := float64(a.Goals)/float64(a.Misses), float64(b.Goals)/float64(b.Misses)
 		switch {
 		case gmA < gmB:
-			return -1
-		case gmA > gmB:
 			return 1
+		case gmA > gmB:
+			return -1
 		default:
-			if a.Rating != b.Rating {
-				return sortName(a, b)
-			}
-			return 0
+			return sortName(a, b)
 		}
 	})
 	return players
